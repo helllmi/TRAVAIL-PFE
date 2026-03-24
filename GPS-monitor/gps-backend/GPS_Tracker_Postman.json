@@ -1,0 +1,155 @@
+{
+  "info": {
+    "name": "GPS Tracker - ESP32",
+    "description": "Tester le backend GPS qui reçoit les positions de l'ESP32 via HTTP POST",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:3000" },
+    { "key": "device_id", "value": "ESP32_NEO7M_001" }
+  ],
+  "item": [
+    {
+      "name": "1 - ESP32 envoie position LIVE (GPS fix)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"device_id\": \"ESP32_NEO7M_001\",\n  \"latitude\": 36.806500,\n  \"longitude\": 10.181500,\n  \"speed\": 45.5,\n  \"altitude\": 10,\n  \"satellites\": 8,\n  \"fallback\": false\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": { "raw": "{{base_url}}/api/gps/location", "host": ["{{base_url}}"], "path": ["api","gps","location"] },
+        "description": "Simule l'ESP32 qui envoie une position GPS réelle (fix OK)"
+      }
+    },
+    {
+      "name": "2 - ESP32 envoie position LIVE (déplacement)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"device_id\": \"ESP32_NEO7M_001\",\n  \"latitude\": 36.818000,\n  \"longitude\": 10.165000,\n  \"speed\": 60.0,\n  \"altitude\": 12,\n  \"satellites\": 9,\n  \"fallback\": false\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": { "raw": "{{base_url}}/api/gps/location", "host": ["{{base_url}}"], "path": ["api","gps","location"] },
+        "description": "2ème position GPS — l'ESP32 s'est déplacé"
+      }
+    },
+    {
+      "name": "3 - ESP32 envoie FALLBACK (GPS sans fix)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"device_id\": \"ESP32_NEO7M_001\",\n  \"latitude\": 36.818000,\n  \"longitude\": 10.165000,\n  \"speed\": 0,\n  \"altitude\": 12,\n  \"satellites\": 0,\n  \"fallback\": true\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": { "raw": "{{base_url}}/api/gps/location", "host": ["{{base_url}}"], "path": ["api","gps","location"] },
+        "description": "L'ESP32 a perdu le signal GPS → envoie la dernière position connue avec fallback:true"
+      }
+    },
+    {
+      "name": "4 - Lire dernière position connue (global)",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{base_url}}/api/gps/location/last", "host": ["{{base_url}}"], "path": ["api","gps","location","last"] },
+        "description": "Retourne la toute dernière position reçue, qu'elle soit LIVE ou FALLBACK"
+      }
+    },
+    {
+      "name": "5 - Lire dernière position par device",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/gps/location/last?device_id={{device_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api","gps","location","last"],
+          "query": [{ "key": "device_id", "value": "{{device_id}}" }]
+        },
+        "description": "Dernière position pour un device spécifique"
+      }
+    },
+    {
+      "name": "6 - Voir tout l'historique",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{base_url}}/api/gps/locations", "host": ["{{base_url}}"], "path": ["api","gps","locations"] },
+        "description": "Toutes les positions enregistrées dans locations.json"
+      }
+    },
+    {
+      "name": "7 - Historique d'un seul device (limit 10)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/gps/locations?device_id={{device_id}}&limit=10",
+          "host": ["{{base_url}}"],
+          "path": ["api","gps","locations"],
+          "query": [
+            { "key": "device_id", "value": "{{device_id}}" },
+            { "key": "limit", "value": "10" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "8 - Statut & statistiques",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{base_url}}/api/gps/status", "host": ["{{base_url}}"], "path": ["api","gps","status"] },
+        "description": "Voir tous les devices, leur activité, minutes depuis dernier ping, GPS actif ou non"
+      }
+    },
+    {
+      "name": "9 - Erreur: latitude invalide (test validation)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"device_id\": \"ESP32_NEO7M_001\",\n  \"latitude\": 999,\n  \"longitude\": 10.18\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": { "raw": "{{base_url}}/api/gps/location", "host": ["{{base_url}}"], "path": ["api","gps","location"] },
+        "description": "Doit retourner 400 — latitude 999 est invalide"
+      }
+    },
+    {
+      "name": "10 - Erreur: device_id manquant (test validation)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"latitude\": 36.80,\n  \"longitude\": 10.18\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": { "raw": "{{base_url}}/api/gps/location", "host": ["{{base_url}}"], "path": ["api","gps","location"] },
+        "description": "Doit retourner 400 — device_id est obligatoire"
+      }
+    },
+    {
+      "name": "11 - Vider historique du device",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "{{base_url}}/api/gps/locations?device_id={{device_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api","gps","locations"],
+          "query": [{ "key": "device_id", "value": "{{device_id}}" }]
+        }
+      }
+    },
+    {
+      "name": "12 - Vider TOUT l'historique",
+      "request": {
+        "method": "DELETE",
+        "url": { "raw": "{{base_url}}/api/gps/locations", "host": ["{{base_url}}"], "path": ["api","gps","locations"] },
+        "description": "Remet les 2 fichiers JSON à zéro"
+      }
+    }
+  ]
+}

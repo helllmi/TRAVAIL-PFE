@@ -1,0 +1,13 @@
+{
+  "last_position": {
+    "id": "1774340959564",
+    "device_id": "ESP32-UNIT-001",
+    "latitude": 36.8396795,
+    "longitude": 10.24791625,
+    "speed": null,
+    "altitude": 52.1,
+    "satellites": 13,
+    "fallback": false,
+    "timestamp": "2026-03-24T08:29:19.564Z"
+  }
+}
