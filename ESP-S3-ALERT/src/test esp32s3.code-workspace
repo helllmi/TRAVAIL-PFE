@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../../test esp32s3"
+		},
+		{
+			"name": "ESP-S3-ALERT",
+			"path": ".."
+		}
+	],
+	"settings": {}
+}
