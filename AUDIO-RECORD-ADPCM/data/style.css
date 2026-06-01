@@ -1,0 +1,38 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #0d0d0d;
+  color: #e8e8e8;
+  font-family: 'Courier New', monospace;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 2rem;
+}
+h1 { font-size: 1.4rem; letter-spacing: 0.3em; text-transform: uppercase; color: #00ff99; text-shadow: 0 0 12px #00ff9966; }
+.status { font-size: 0.85rem; letter-spacing: 0.15em; color: #888; min-height: 1.2em; }
+.status.recording { color: #ff4455; animation: blink 1s infinite; }
+.status.done      { color: #00ff99; }
+.status.error     { color: #ffaa00; }
+@keyframes blink { 50% { opacity: 0.3; } }
+.btn {
+  padding: 0.8rem 2.4rem;
+  border: 2px solid #00ff99;
+  background: transparent;
+  color: #00ff99;
+  font-family: inherit;
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn:hover  { background: #00ff9922; box-shadow: 0 0 18px #00ff9944; }
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.3; cursor: default; }
+.btn.download { border-color: #4488ff; color: #4488ff; text-decoration: none; display: inline-block; }
+.btn.download:hover { background: #4488ff22; box-shadow: 0 0 18px #4488ff44; }
+.progress-bar { width: 260px; height: 4px; background: #222; border-radius: 2px; overflow: hidden; }
+.progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #00ff99, #4488ff); transition: width 0.5s; }
+.info { font-size: 0.75rem; color: #555; letter-spacing: 0.1em; }

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ESP32 Recorder</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>&#9632; ESP32 Recorder</h1>
+  <div class="status" id="status">En attente...</div>
+  <div class="progress-bar"><div class="progress-fill" id="bar"></div></div>
+  <button class="btn" id="recBtn" onclick="startRecording()">Démarrer</button>
+  <a id="dlLink" class="btn download" href="/download" style="display:none">&#8659; Télécharger WAV</a>
+  <div class="info">8 kHz · 16 bit · Mono · 10 s</div>
+  <script src="script.js"></script>
+</body>
+</html>
