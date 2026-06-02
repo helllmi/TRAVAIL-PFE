@@ -46,7 +46,14 @@ Maintenance à distance des équipements.
 *   **Serveur** : Script Python gérant la distribution des binaires.
 *   **Firmware** : Intègre la bibliothèque `Update.h` de l'ESP32 pour le flashage à chaud via flux HTTP déclenché par MQTT.
 
-### 7. [wifi-manager](./wifi-manager)
+### 7. [Alert-Telemetry-Ota V0 -Nv-Firmware](./Alert-Telemetry-Ota%20V0%20-Nv-Firmware)
+Le module le plus abouti du projet, intégrant une logique métier complète et une robustesse industrielle.
+*   **FSM (Machine à États)** : Gestion intelligente des modes Standby (économie d'énergie) et Action (alerte active).
+*   **Connectivité LTE/WiFi** : Basculement automatique et file d'attente LittleFS pour les messages hors-ligne.
+*   **OTA Sécurisé** : Mise à jour à distance avec vérification SHA256 et mécanisme de rollback automatique.
+*   **Hardware** : ESP32-S3 + SIM7670G + Fuel Gauge MAX17048.
+
+### 8. [wifi-manager](./wifi-manager)
 Gestionnaire de provisionnement réseau.
 *   **Concept** : Portail captif autonome si le WiFi est absent.
 *   **Stockage** : Sauvegarde des credentials en mémoire **NVS** via **LittleFS**.
@@ -61,7 +68,8 @@ Gestionnaire de provisionnement réseau.
 | **Microcontrôleurs** | ESP32, ESP32-S3 (Xtensa Dual-Core) |
 | **Langages** | C++ (Embedded), JavaScript (Node.js), Python |
 | **Gestion Audio** | I2S, PCM, ADPCM, RTSP, RTP |
-| **Connectivité** | 4G LTE, GNSS, WiFi, MQTT, WebSocket, HTTP/REST |
+| **Connectivité** | 4G LTE Cat-1, GNSS, WiFi, MQTT, WebSocket, HTTP/REST |
+| **Sécurité** | Hash SHA256, OTA Rollback, Watchdog matériel |
 | **Outils de Dev** | PlatformIO, Arduino IDE, NPM, Git |
 
 ## 📐 Schéma de Connexion Typique (GNSS)
