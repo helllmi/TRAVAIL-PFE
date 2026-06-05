@@ -47,17 +47,20 @@ Maintenance à distance des équipements.
 *   **Firmware** : Intègre la bibliothèque `Update.h` de l'ESP32 pour le flashage à chaud via flux HTTP déclenché par MQTT.
 
 ### 7. [Alert-Telemetry-Ota V0 -Nv-Firmware](./Alert-Telemetry-Ota%20V0%20-Nv-Firmware)
-Le module le plus abouti du projet, intégrant une logique métier complète et une robustesse industrielle.
-*   **FSM (Machine à États)** : Gestion intelligente des modes Standby (économie d'énergie) et Action (alerte active).
-*   **Connectivité LTE/WiFi** : Basculement automatique et file d'attente LittleFS pour les messages hors-ligne.
-*   **OTA Sécurisé** : Mise à jour à distance avec vérification SHA256 et mécanisme de rollback automatique.
-*   **Hardware** : ESP32-S3 + SIM7670G + Fuel Gauge MAX17048.
+Module intermédiaire intégrant une logique métier complète et une robustesse industrielle.
+*   **FSM (Machine à États)** : Gestion intelligente des modes Standby et Action.
+*   **Connectivité LTE/WiFi** : Basculement automatique et file d'attente LittleFS.
+*   **OTA Sécurisé** : Mise à jour à distance avec vérification SHA256.
 
 ### 8. [wifi-manager](./wifi-manager)
-Gestionnaire de provisionnement réseau.
-*   **Concept** : Portail captif autonome si le WiFi est absent.
-*   **Stockage** : Sauvegarde des credentials en mémoire **NVS** via **LittleFS**.
-*   **Action** : Téléverser l'image du système de fichiers via `Upload Filesystem Image` sur PlatformIO.
+Gestionnaire de provisionnement réseau via portail captif simple.
+
+### 9. [Alert-Telemetry-Ota V0 -Nv-Firmware - integration audio -portail captif](./Alert-Telemetry-Ota%20V0%20-Nv-Firmware%20-%20integration%20audio%20-portail%20captif)
+🏆 **Version Flagship** : Le module le plus abouti du projet, fusionnant l'intégralité des fonctionnalités de sécurité et de gestion.
+*   **SOS & Audio** : Enregistrement automatique de l'audio environnant (WAV sur SD via I2S) lors d'un SOS.
+*   **Portail de Gestion** : Interface Web complète pour configurer le WiFi, le MQTT et télécharger les enregistrements audio.
+*   **OTA & Rollback** : Système de mise à jour sécurisé avec retour arrière automatique en cas d'erreur.
+*   **Hardware** : ESP32-S3 + SIM7670G + I2S MEMS Mic + SD_MMC + MAX17048.
 
 ---
 
